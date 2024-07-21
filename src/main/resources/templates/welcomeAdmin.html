@@ -8,6 +8,10 @@
 <form th:object="${user}" th:action="@{/admin/users}">
     <button type="submit">All Users</button>
 </form>
-
+<td>
+    <form th:action="@{/logout}">
+        <button type="submit">Log out</button>
+    </form>
+</td>
 </body>
 </html>

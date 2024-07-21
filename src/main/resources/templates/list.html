@@ -25,7 +25,7 @@
         <td th:text="${user.age}"></td>
         <td th:text="${user.rolesToString()}"></td>
         <td>
-            <form th:action="@{/users/edit}">
+            <form th:action="@{/admin/edit}">
                 <button type="submit" th:name="id" th:value="${user.id}">Edit</button>
             </form>
         </td>
@@ -39,5 +39,10 @@
     </tbody>
 </table>
 <a href="/admin/new">Create new user</a>
+<td>
+    <form th:action="@{/logout}">
+        <button type="submit">Log out</button>
+    </form>
+</td>
 </body>
 </html>

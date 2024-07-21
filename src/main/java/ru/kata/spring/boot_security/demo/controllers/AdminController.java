@@ -50,6 +50,20 @@ public class AdminController {
         return "redirect:/admin/users";
     }
 
+    @GetMapping("/edit")
+    public String editUserForm(@RequestParam("id") long id, Model model) {
+        model.addAttribute("user", userService.showUserById(id));
+        List<Role> roles = userService.findRoles();
+        model.addAttribute("roles", roles);
+        return "editUser";
+    }
+
+    @PostMapping("/edit")
+    public String edit(@RequestParam(value = "id") long id, User user) {
+        userService.updateUserById(id, user);
+        return "redirect:/admin/users";
+    }
+
     @PostMapping("/delete")
     public String deleteUser(@RequestParam("id") Long id) {
         userService.deleteUserById(id);
