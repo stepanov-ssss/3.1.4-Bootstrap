@@ -14,7 +14,7 @@ import ru.kata.spring.boot_security.demo.services.UserServiceImpl;
 
 import javax.transaction.Transactional;
 import java.util.Collection;
-import java.util.List;
+
 import java.util.stream.Collectors;
 
 @Service
@@ -27,16 +27,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         this.userService = userService;
     }
 
-
-
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userService.findUserByUsername(username);
-        System.out.println(user.getRoleName());
         if (user == null) {
-            throw new UsernameNotFoundException("User not found");
-//            throw new UsernameNotFoundException(String.format("'%s' not found", username));
+            throw new UsernameNotFoundException(String.format("User %s not found", username));
         }
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), rolesToAuthorities(user.getRoles()));
     }

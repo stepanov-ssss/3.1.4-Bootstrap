@@ -21,20 +21,23 @@ public class User implements UserDetails {
     @Column(unique = true, nullable = false, name = "username")
     private String username;
 
-    @Column(unique = true, nullable = false, name = "password")
+    @Column(nullable = false, name = "password")
     private String password;
 
-    @Column(unique = true, nullable = false, name = "age")
+    @Column(name = "surname")
+    private String surname;
+
+    @Column(nullable = false, name = "age")
     private String age;
 
     @Transient
     String roleName;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Collection<Role> roles = new HashSet<>();
+    private Collection<Role> roles;
 
     public String rolesToString() {
         return roles.stream()
@@ -45,13 +48,16 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(int id, String username, String password, String age) {
+    public User(int id, String username, String password, String surname, String age) {
         this.id = id;
         this.username = username;
         this.password = password;
+        this.surname = surname;
+        this.age = age;
     }
 
-    //права, тут нужно получить список ролей???
+    //методы необходимые для работы с Security
+    //права, тут нужно получить список ролей
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRoles();
@@ -69,6 +75,7 @@ public class User implements UserDetails {
         return this.password;
     }
 
+    //аккаунт в блоке и тд
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -90,9 +97,15 @@ public class User implements UserDetails {
     }
 
 
+
     public Collection<Role> getRoles() {
         return roles;
     }
+
+    public void setRoles(Collection<Role> roles) {
+        this.roles = roles;
+    }
+
 
     public String getRoleName() {
         return roleName;
@@ -105,6 +118,7 @@ public class User implements UserDetails {
     public void addRole(Role role) {
         this.roles.add(role);
     }
+
 
 
 
@@ -122,6 +136,14 @@ public class User implements UserDetails {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getSurname() {
+        return surname;
     }
 
     public String getAge() {

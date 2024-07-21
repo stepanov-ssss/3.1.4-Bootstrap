@@ -6,6 +6,8 @@
     <title>All users</title>
 </head>
 <body>
+<form th:action="@{/logout}">
+
 <table>
     <thead>
     <tr>
@@ -14,30 +16,21 @@
         <th>Surname</th>
         <th>Age</th>
         <th>Role</th>
+
     </tr>
     </thead>
     <tbody>
     <tr var="user" items="${users}">
-    <tr th:each="user : ${users}">
         <td th:text="${user.id}"></td>
         <td th:text="${user.username}"></td>
         <td th:text="${user.surname}"></td>
         <td th:text="${user.age}"></td>
         <td th:text="${user.rolesToString()}"></td>
-        <td>
-            <form th:action="@{/users/edit}">
-                <button type="submit" th:name="id" th:value="${user.id}">Edit</button>
-            </form>
-        </td>
-        <td>
-            <form method="post" th:action="@{/users/delete}">
-                <button type="submit" th:name="id" th:value="${user.id}">Delete</button>
-            </form>
-        </td>
     </tr>
-    </tr>
+
     </tbody>
 </table>
-<a href="/admin/new">Create new user</a>
+<button type="submit">Log out</button>
+</form>
 </body>
 </html>

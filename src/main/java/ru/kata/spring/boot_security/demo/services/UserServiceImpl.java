@@ -43,7 +43,6 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void saveUser(User user) {
-        user.setPassword(user.getPassword());
         userRepositories.save(user);
     }
 

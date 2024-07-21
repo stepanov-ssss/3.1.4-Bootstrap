@@ -7,12 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.security.UserDetailsServiceImpl;
 import ru.kata.spring.boot_security.demo.services.UserService;
-import ru.kata.spring.boot_security.demo.services.UserServiceImpl;
 
 import java.security.Principal;
 
 @Controller
-@RequestMapping("/users")
+@RequestMapping("/user")
 public class UserController {
 
     private final UserService userService;
@@ -23,16 +22,18 @@ public class UserController {
         this.userDetailsServiceImpl = userDetailsServiceImpl;
     }
 
-//    @GetMapping("/list")
-//    public String showForUser(Model model, Principal principal) {
-//        User user = userService.findUserByUsername(principal.getName());
-//        model.addAttribute("user", user);
-//        return "user";
-//    }
-
-    @GetMapping("/list")
-    public String showListUsers(Model model) {
-        model.addAttribute("users", userService.getAllUsers());
-        return "list";
+    @GetMapping("/welcome")
+    public String users(Model model, Principal principal) {
+        User user = userService.findUserByUsername(principal.getName());
+        model.addAttribute("user", user);
+        return "welcomeUser";
     }
+
+    @GetMapping("/profile")
+    public String userPage(Model model, Principal principal) {
+        User user = userService.findUserByUsername(principal.getName());
+        model.addAttribute("user", user);
+        return "userProfile";
+    }
+
 }
