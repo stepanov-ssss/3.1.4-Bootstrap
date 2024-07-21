@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity
@@ -16,28 +16,28 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Long id;
 
-    @Column(unique = true, nullable = false, name = "username")
+    @Column(name = "username")
     private String username;
 
-    @Column(nullable = false, name = "password")
+    @Column( name = "password")
     private String password;
 
     @Column(name = "surname")
     private String surname;
 
-    @Column(nullable = false, name = "age")
+    @Column( name = "age")
     private String age;
 
     @Transient
     String roleName;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Collection<Role> roles;
+    private Set<Role> roles = new HashSet<>();
 
     public String rolesToString() {
         return roles.stream()
@@ -48,8 +48,7 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(int id, String username, String password, String surname, String age) {
-        this.id = id;
+    public User(String username, String password, String surname, String age) {
         this.username = username;
         this.password = password;
         this.surname = surname;
@@ -98,11 +97,11 @@ public class User implements UserDetails {
 
 
 
-    public Collection<Role> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Collection<Role> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 
@@ -122,11 +121,11 @@ public class User implements UserDetails {
 
 
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
