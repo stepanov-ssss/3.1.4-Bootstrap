@@ -15,25 +15,16 @@ import java.security.Principal;
 public class UserController {
 
     private final UserService userService;
-    private final UserDetailsServiceImpl userDetailsServiceImpl;
 
-    public UserController(UserService userService, UserDetailsServiceImpl userDetailsServiceImpl) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.userDetailsServiceImpl = userDetailsServiceImpl;
+
     }
 
-    @GetMapping("/welcome")
-    public String users(Model model, Principal principal) {
-        User user = userService.findUserByUsername(principal.getName());
-        model.addAttribute("user", user);
-        return "welcomeUser";
-    }
-
-    @GetMapping("/profile")
+    @GetMapping()
     public String userPage(Model model, Principal principal) {
         User user = userService.findUserByUsername(principal.getName());
         model.addAttribute("user", user);
         return "userProfile";
     }
-
 }

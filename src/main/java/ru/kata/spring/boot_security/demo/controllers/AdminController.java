@@ -22,7 +22,7 @@ public class AdminController {
         this.userService = userService;
     }
 
-    @GetMapping("/welcome")
+    @GetMapping("/")
     public String helloAdmin(Model model, Principal principal) {
         User user = userService.findUserByUsername(principal.getName());
         model.addAttribute("user", user);
