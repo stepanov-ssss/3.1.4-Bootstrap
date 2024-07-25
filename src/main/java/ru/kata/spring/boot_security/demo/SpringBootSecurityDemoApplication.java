@@ -11,5 +11,4 @@ public class SpringBootSecurityDemoApplication {
 		SpringApplication.run(SpringBootSecurityDemoApplication.class, args);
 		System.out.println("Connection successful");
 	}
-
 }
