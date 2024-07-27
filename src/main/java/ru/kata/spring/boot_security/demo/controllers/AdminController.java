@@ -22,18 +22,27 @@ public class AdminController {
         this.userService = userService;
     }
 
-    @GetMapping("/")
-    public String helloAdmin(Model model, Principal principal) {
-        User user = userService.findUserByUsername(principal.getName());
-        model.addAttribute("user", user);
-        return "welcomeAdmin";
-    }
+//    @GetMapping("/")
+//    public String helloAdmin(Model model, Principal principal) {
+//        User user = userService.findUserByUsername(principal.getName());
+//        model.addAttribute("user", user);
+//        return "welcomeAdmin";
+//    }
 
-    @GetMapping("/users")
-    public String listUsers(Model model, User user) {
+    @GetMapping
+    public String listUsers(Model model, User user, Principal principal) {
+        User currentUser = userService.findUserByUsername(principal.getName());
+        model.addAttribute("admin", currentUser);
         model.addAttribute("users", userService.getAllUsers());
         model.addAttribute("roles", userService.findRoles());
-        return "list";
+        return "adminPage";
+    }
+
+    @GetMapping("/profile")
+    public String userPage(Model model, Principal principal) {
+        User user = userService.findUserByUsername(principal.getName());
+        model.addAttribute("user", user);
+        return "adminProfile";
     }
 
     @GetMapping("/new")
@@ -44,10 +53,10 @@ public class AdminController {
         return "newUserForm";
     }
 
-    @PostMapping("/users")
+    @PostMapping("/new")
     public String save(@ModelAttribute("user") User user) {
         userService.saveUser(user);
-        return "redirect:/admin/users";
+        return "redirect:/admin/";
     }
 
     @GetMapping("/edit")
@@ -67,6 +76,6 @@ public class AdminController {
     @PostMapping("/delete")
     public String deleteUser(@RequestParam("id") Long id) {
         userService.deleteUserById(id);
-        return "redirect:/admin/users";
+        return "redirect:/admin/";
     }
 }
