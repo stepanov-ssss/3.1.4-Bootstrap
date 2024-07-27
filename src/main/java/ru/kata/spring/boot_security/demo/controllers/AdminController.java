@@ -70,7 +70,7 @@ public class AdminController {
     @PostMapping("/edit")
     public String edit(@RequestParam(value = "id") long id, User user) {
         userService.updateUserById(id, user);
-        return "redirect:/admin/users";
+        return "redirect:/admin/";
     }
 
     @PostMapping("/delete")
