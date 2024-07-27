@@ -13,9 +13,10 @@
     <thead>
     <tr>
         <th>ID</th>
-        <th>Username</th>
-        <th>Surname</th>
+        <th>First Name</th>
+        <th>Last Name</th>
         <th>Age</th>
+        <th>Email</th>
         <th>Role</th>
 
     </tr>
@@ -23,9 +24,10 @@
     <tbody>
     <tr var="user" items="${users}">
         <td th:text="${user.id}"></td>
-        <td th:text="${user.username}"></td>
-        <td th:text="${user.surname}"></td>
+        <td th:text="${user.firstName}"></td>
+        <td th:text="${user.lastName}"></td>
         <td th:text="${user.age}"></td>
+        <td th:text="${user.username}"></td>
         <td th:text="${user.rolesToString()}"></td>
     </tr>
 

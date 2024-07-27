@@ -15,20 +15,23 @@ public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "Id")
     private Long id;
 
-    @Column(name = "username")
+    @Column(name = "First_name")
+    private String firstName;
+
+    @Column(name = "Last_name")
+    private String lastName;
+
+    @Column( name = "Age")
+    private String age;
+
+    @Column(name = "Email")
     private String username;
 
-    @Column( name = "password")
+    @Column( name = "Password")
     private String password;
-
-    @Column(name = "surname")
-    private String surname;
-
-    @Column( name = "age")
-    private String age;
 
     @Transient
     String roleName;
@@ -48,11 +51,12 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String username, String password, String surname, String age) {
+    public User(String firstName, String lastName, String age, String username, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
         this.username = username;
         this.password = password;
-        this.surname = surname;
-        this.age = age;
     }
 
     //методы необходимые для работы с Security
@@ -105,7 +109,6 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
-
     public String getRoleName() {
         return roleName;
     }
@@ -119,8 +122,6 @@ public class User implements UserDetails {
     }
 
 
-
-
     public Long getId() {
         return id;
     }
@@ -129,20 +130,20 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public String getSurname() {
-        return surname;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getAge() {
@@ -153,6 +154,15 @@ public class User implements UserDetails {
         this.age = age;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -161,20 +171,22 @@ public class User implements UserDetails {
         User user = (User) o;
 
         if (!id.equals(user.id)) return false;
+        if (!firstName.equals(user.firstName)) return false;
+        if (!lastName.equals(user.lastName)) return false;
+        if (!age.equals(user.age)) return false;
         if (!username.equals(user.username)) return false;
         if (!password.equals(user.password)) return false;
-        if (!surname.equals(user.surname)) return false;
-        if (!age.equals(user.age)) return false;
         return roles.equals(user.roles);
     }
 
     @Override
     public int hashCode() {
         int result = id.hashCode();
+        result = 31 * result + firstName.hashCode();
+        result = 31 * result + lastName.hashCode();
+        result = 31 * result + age.hashCode();
         result = 31 * result + username.hashCode();
         result = 31 * result + password.hashCode();
-        result = 31 * result + surname.hashCode();
-        result = 31 * result + age.hashCode();
         result = 31 * result + roles.hashCode();
         return result;
     }

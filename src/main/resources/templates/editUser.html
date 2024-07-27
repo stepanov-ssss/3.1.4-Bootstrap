@@ -8,18 +8,22 @@
 <body>
 <form th:action="@{/admin/edit}" th:method="POST"   th:object="${user}" >
     <input name="id" type="hidden" th:value="${user.getId()}">
-    <label for="username">Username</label>
+    <label for="firstname">First Name</label>
+    <input type="text" id="firstname" th:field="*{firstName}" th:value="${user.firstName}" required>
+    </br>
+    <label for="lastname">Last Name</label>
+    <input type="text" id="lastname" th:field="*{lastName}" th:value="${user.lastName}" required>
+    </br>
+    <label for="age">Age</label>
+    <input type="text" id="age" th:field="*{age}" th:value="${user.age}" required>
+    </br>
+    <label for="username">Email</label>
     <input type="text" id="username" th:field="*{username}" th:value="${user.username}" required>
     </br>
     <label for="password">Password</label>
     <input type="text" id="password" th:field="*{password}" th:value="${user.password}" required>
     </br>
-    <label for="surname">Surname</label>
-    <input type="text" id="surname" th:field="*{surname}" th:value="${user.surname}" required>
-    </br>
-    <label for="age">Age</label>
-    <input type="text" id="age" th:field="*{age}" th:value="${user.age}" required>
-    </br>
+
     <label class="col-form-label font-weight-bold" for="roles">Role</label>
     <input type="checkbox"  id="roles" name="roles"
            th:each="role : ${roles}"
