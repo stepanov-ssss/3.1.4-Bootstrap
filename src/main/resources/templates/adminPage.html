@@ -157,7 +157,8 @@
                                                         <button type="button" class="btn btn-secondary"
                                                                 data-dismiss="modal">Close
                                                         </button>
-                                                        <button type="submit" th:name="id" th:value="${user.id}" class="btn btn-danger text-white">Delete
+                                                        <button type="submit" th:name="id" th:value="${user.id}"
+                                                                class="btn btn-danger text-white">Delete
                                                         </button>
                                                     </div>
 
@@ -238,7 +239,9 @@
                                                         <button type="button" class="btn btn-secondary"
                                                                 data-dismiss="modal">Close
                                                         </button>
-                                                        <button type="submit" th:name="id" th:value="${user.id}" class="btn btn-primary">Edit</button>
+                                                        <button type="submit" th:name="id" th:value="${user.id}"
+                                                                class="btn btn-primary">Edit
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -257,7 +260,8 @@
                         <div class="panel-body">
                             <div class="container">
                                 <div class="row justify-content-center align-items-center">
-                                    <form class="col-4"  th:action="@{/admin/new}" th:object="${newUser}" th:method="POST">
+                                    <form class="col-4" th:action="@{/admin/new}" th:object="${newUser}"
+                                          th:method="POST">
                                         <div class="form-group text-center ">
                                             <label class="col-form-label font-weight-bold" for="firstName">First
                                                 name</label>
