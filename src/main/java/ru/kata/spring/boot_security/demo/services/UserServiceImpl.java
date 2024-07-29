@@ -67,6 +67,7 @@ public class UserServiceImpl implements UserService {
         if (user.getRoles().isEmpty()) {
             user.setRoles(userRepositories.findByUsername(user.getUsername()).getRoles());
         }
+
         userRepositories.save(user);
     }
 
